@@ -26,6 +26,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.example.googleafricascholarship.ui.activity.main.MainActivity.dialog1;
+
 public class LearningFragment extends Fragment {
 
     private LearningViewModel mViewModel;
@@ -39,11 +41,11 @@ public class LearningFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.learning_fragment, container, false);
+        View view = inflater.inflate(R.layout.learning_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        return  view;
+        return view;
     }
 
     @Override
@@ -52,8 +54,7 @@ public class LearningFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(LearningViewModel.class);
 
 
-
-                mViewModel.getHours().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<LearningModel>>() {
+        mViewModel.getHours().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<LearningModel>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -62,9 +63,10 @@ public class LearningFragment extends Fragment {
             @Override
             public void onNext(List<LearningModel> learningModels) {
                 Log.d("gfdgds", "onNext: " + learningModels.size());
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-                hoursLearningAdapter = new HoursLearningAdapter(learningModels,getContext());
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                hoursLearningAdapter = new HoursLearningAdapter(learningModels, getContext());
                 recyclerView.setAdapter(hoursLearningAdapter);
+                dialog1.dismiss();
             }
 
             @Override

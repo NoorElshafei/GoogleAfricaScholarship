@@ -7,11 +7,12 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitService {
 
     private static Retrofit retrofit = null;
-    private static String baseUrl = "http://gadsapi.herokuapp.com/";
+
     private static ApiServices apiServices;
 
    /* private static OkHttpClient getOkHttpClint(){
@@ -22,15 +23,23 @@ public class RetrofitService {
                 .build();
     }*/
 
-    public static ApiServices getClient() {
-
-//            Gson gson = new GsonBuilder()
-//                    .setLenient()
-//                    .create();
+    public static ApiServices getClient(String baseUrl) {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build().create(ApiServices.class);
+
+    }
+    public static ApiServices getClient1(String baseUrl) {
+
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build().create(ApiServices.class);
 
     }

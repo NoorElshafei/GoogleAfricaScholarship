@@ -29,6 +29,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.example.googleafricascholarship.ui.activity.main.MainActivity.dialog1;
+
 public class SkillsFragment extends Fragment {
 
     private SkillsViewModel mViewModel;
@@ -66,6 +68,7 @@ public class SkillsFragment extends Fragment {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
                 skillsAdapter = new SkillsAdapter(learningModels, getContext());
                 recyclerView.setAdapter(skillsAdapter);
+                dialog1.dismiss();
             }
 
             @Override

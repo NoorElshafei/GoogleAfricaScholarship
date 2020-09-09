@@ -1,9 +1,8 @@
-package com.example.googleafricascholarship.ui.fragment.skills;
+package com.example.googleafricascholarship.ui.activity.submit;
 
 import androidx.lifecycle.ViewModel;
 
 import com.example.googleafricascholarship.data.model.LearningModel;
-import com.example.googleafricascholarship.data.model.SkillsModel;
 import com.example.googleafricascholarship.data.network.ApiServices;
 import com.example.googleafricascholarship.data.network.Common;
 import com.example.googleafricascholarship.data.network.RetrofitService;
@@ -12,13 +11,14 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class SkillsViewModel extends ViewModel {
+public class SubmitViewModel extends ViewModel {
     private ApiServices service ;
-    public SkillsViewModel() {
-        this.service = RetrofitService.getClient(Common.getBaseUrl());
+
+    public SubmitViewModel() {
+        this.service = RetrofitService.getClient1(Common.getBaseUrl1());
     }
 
-    public Observable<List<SkillsModel>> getSkills(){
-        return service.getApi1();
+    public Observable<String> postSubmit(String fName,String lName,String eMail,String gitHub){
+        return service.getApi2(eMail,fName,lName,gitHub);
     }
 }
